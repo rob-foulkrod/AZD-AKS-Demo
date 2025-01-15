@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: azd-aks-demo
+hooks:  
+  predeploy: # This hook is executed before the deployment of the application to create the custom-values.yaml file
+    windows:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/predeploy.ps1

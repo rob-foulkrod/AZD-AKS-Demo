@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshoponweb
+spec:
+  replicas: 5
+  selector: 
+    matchLabels:
+      app: eshoponweb
+  template:
+    metadata:
+      labels:
+        app: eshoponweb
+    spec:
+      containers:
+      - name: eshoponweb
+        image: {{ .Values.image }}
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Docker
+        - name: UseOnlyInMemoryDatabase
+          value: "true"
+        - name: ASPNETCORE_HTTP_PORTS
+          value: "80"
