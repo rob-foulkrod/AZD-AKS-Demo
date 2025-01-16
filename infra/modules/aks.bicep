@@ -4,7 +4,8 @@ param tags object
 @description('Name of the ACR to use in the same resource group')
 param acrName string
 
-var aksName = 'aks-${uniqueString(resourceGroup().id, subscription().id)}'
+var uniqueName = uniqueString(resourceGroup().id, subscription().id)
+var aksName = 'aks-${uniqueName}'
 
 resource registry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' existing = {
   name: acrName
@@ -42,4 +43,3 @@ resource roleAssignmentACR 'Microsoft.Authorization/roleAssignments@2022-04-01' 
 }
 
 output clusterName string = aks.name
-
