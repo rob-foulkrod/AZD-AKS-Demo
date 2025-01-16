@@ -36,6 +36,15 @@ module aks 'modules/aks.bicep' = {
   }
 }
 
+module monitoring 'modules/monitoring.bicep' = {
+  name: 'monitoring'
+  scope: rg
+  params: {
+    tags: tags
+    aksName: aks.outputs.clusterName
+  }
+}
+
 output AZURE_REGISTRY_NAME string = acr.outputs.registryName
 output AZURE_REGISTRY_URI string = acr.outputs.loginServer
 output AZURE_RG_NAME string = rg.name

@@ -13,11 +13,17 @@ resource registry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' ex
 
 resource aks 'Microsoft.ContainerService/managedClusters@2024-02-01' = {
   name: aksName
+  tags: tags
   location: resourceGroup().location
   identity: {
     type: 'SystemAssigned'
   }
   properties: {
+    azureMonitorProfile: {
+      metrics: {
+        enabled: true
+      }
+    }
     dnsPrefix: '${aksName}-dns'
     agentPoolProfiles: [
       {

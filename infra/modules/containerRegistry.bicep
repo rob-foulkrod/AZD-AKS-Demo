@@ -31,6 +31,7 @@ resource roleAssignmentACR 'Microsoft.Authorization/roleAssignments@2022-04-01' 
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
     principalId: userId.properties.principalId
     principalType: 'ServicePrincipal'
+    description: 'Contributor access for the acr for user assigned identity which is necessary for importing the image.'
   }
 }
 
@@ -41,6 +42,7 @@ resource roleAssignmentRG 'Microsoft.Authorization/roleAssignments@2022-04-01' =
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')
     principalId: userId.properties.principalId
     principalType: 'ServicePrincipal'
+    description: 'Read access for the resource group for user assigned identity which is necessary for finding the acr when executing the deployment script.'
   }
 }
 
