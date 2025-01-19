@@ -12,3 +12,25 @@ hooks:
       continueOnError: false
       interactive: false
       run: azd-hooks/predeploy.ps1
+  postdeploy:
+    windows:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/postdeploy.ps1
+    posix:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/postdeploy.ps1
+  predown: # This hook is executed before the deletion of the application to delete the custom-values.yaml file
+    windows:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/predown.ps1
+    posix:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/predown.ps1
