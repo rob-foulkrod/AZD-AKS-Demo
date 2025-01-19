@@ -7,3 +7,8 @@ hooks:
       continueOnError: false
       interactive: false
       run: azd-hooks/predeploy.ps1
+    posix:
+      shell: pwsh
+      continueOnError: false
+      interactive: false
+      run: azd-hooks/predeploy.ps1

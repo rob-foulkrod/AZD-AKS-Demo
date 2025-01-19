@@ -11,7 +11,21 @@ resource registry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' ex
   name: acrName
 }
 
-resource aks 'Microsoft.ContainerService/managedClusters@2024-02-01' = {
+resource logWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: 'logAnalytics-${uniqueName}'
+  location: resourceGroup().location
+  tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+  }
+}
+
+resource aks 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
   name: aksName
   tags: tags
   location: resourceGroup().location
@@ -34,7 +48,16 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-02-01' = {
         osType: 'Linux'
         mode: 'System'
       }
-    ]
+    ]    
+    addonProfiles: {
+      omsagent: {
+        enabled: true
+        config: {
+          logAnalyticsWorkspaceResourceID: logWorkspace.id
+          useAADAuth: 'true'
+        }
+      }
+    }    
   }
 }
 

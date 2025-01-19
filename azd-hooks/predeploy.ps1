@@ -1,7 +1,21 @@
 #!/usr/bin/env pwsh
 
+function Check-Command {
+    param (
+        [string]$command
+    )
+    if (-not (Get-Command $command -ErrorAction SilentlyContinue)) {
+        Write-Error "$command is not installed or not found in PATH."
+        exit 1
+    }
+}
+
+Check-Command -command "az"
+Check-Command -command "kubectl"
+Check-Command -command "helm"
+
 try {
-    $credentialsOutput = az aks get-credentials --resource-group ${env:AZURE_RG_NAME} --name ${env:AZURE_AKS_CLUSTERNAME} --overwrite-existing
+    az aks get-credentials --resource-group ${env:AZURE_RG_NAME} --name ${env:AZURE_AKS_CLUSTERNAME} --overwrite-existing
 } catch {
     Write-Error "Failed to get AKS credentials: $_"
     exit 1

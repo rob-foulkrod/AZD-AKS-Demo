@@ -59,7 +59,7 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
   }
   properties: {
     azCliVersion: '2.63.0' //There must a better way to automatically use latest instead of keep on updating the version.
-    scriptContent: 'az acr import --name ${registryName} --source ghcr.io/maartenvandiemen/eshoponweb:latest --image maartenvandiemen/eshoponweb:latest'
+    scriptContent: 'az acr import --name ${registryName} --source ghcr.io/maartenvandiemen/eshoponweb:latest --image maartenvandiemen/eshoponweb:latest --force'
     retentionInterval: 'PT1H'
   }
 }
